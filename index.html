@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Matar Mbow - Responsable Pédagogique CTS</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #d4af37;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --accent: #00a8cc;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-logo img {
+            height: 45px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-logo span {
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            font-size: 1.1rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            padding: 100px 10% 60px;
+            background: linear-gradient(145deg, #002244 0%, #001529 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.8rem, 6vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.6rem;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            z-index: 1;
+        }
+
+        .hero-image img {
+            width: 320px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            border: 8px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            transition: var(--transition);
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+            border-color: var(--secondary);
+        }
+
+        /* --- Sections Communes --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 4rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 10px;
+        }
+
+        /* --- Grid & Cards --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+
+        /* --- Boutons --- */
+        .project-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-proto, .btn-git, .btn-main {
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-main {
+            background: var(--secondary);
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        .btn-main:hover {
+            background: #e5c04a;
+            transform: scale(1.05);
+        }
+
+        .btn-proto {
+            background-color: var(--secondary);
+            color: var(--primary);
+            flex: 1;
+        }
+
+        .btn-git {
+            background-color: var(--dark);
+            color: var(--white);
+            flex: 1;
+        }
+
+        .btn-proto:hover, .btn-git:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .project-tag {
+            background: rgba(0, 168, 204, 0.1);
+            color: var(--accent);
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .tech-stack {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        .tech-stack li {
+            background: #f0f2f5;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            color: var(--primary);
+            font-weight: 600;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* --- Timeline --- */
+        .timeline {
+            max-width: 900px;
+            margin: auto;
+            border-left: 4px solid var(--primary);
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -51px;
+            top: 20px;
+            width: 18px;
+            height: 18px;
+            background: var(--secondary);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .timeline-item h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* --- CTS Program --- */
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .program-item {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            border-bottom: 5px solid var(--secondary);
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .program-item:hover {
+            transform: translateY(-5px);
+            background: var(--accent);
+        }
+
+        /* --- Skills Section Fixes --- */
+        #skills .card {
+            min-height: auto;
+        }
+
+        #skills ul {
+            padding-left: 0;
+        }
+
+        #skills ul li {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 60px 10% 30px;
+        }
+
+        footer strong {
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 140px;
+            }
+            .hero-image img {
+                width: 250px;
+                height: 250px;
+                border-radius: 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            section {
+                padding: 60px 5%;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-logo">
+            <img src="logo_uadb.png" alt="UADB">
+            <span>MATAR MBOW</span>
+        </div>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#projets">Projets</a></li>
+            <li><a href="#skills">Compétences</a></li>
+            <li><a href="#parcours">Parcours</a></li>
+            <li><a href="#cts">Programme</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Matar Mbow</h1>
+            <span class="subtitle">L'Excellence par la Pratique</span>
+            <p>Étudiant en Licence 3 Systèmes, Réseaux et Télécommunications à l'UADB, passionné par la
+                cybersécurité et candidat au poste de <strong>Responsable Pédagogique du Cyber Tech Squad
+                    (CTS)</strong>.</p>
+            <a href="#cts" class="btn-main">DÉCOUVRIR MON PROGRAMME</a>
+        </div>
+        <div class="hero-image">
+            <img src="maphoto.jpeg" alt="Matar Mbow">
+        </div>
+    </section>
+
+    <section id="projets">
+        <h2 class="section-title">Mes Réalisations</h2>
+        <div class="grid">
+            <!-- Projet 1 -->
+            <div class="card">
+                <div class="project-info">
+                    <span class="project-tag">Civic-Tech</span>
+                    <h3>XALAT-ci</h3>
+                    <p>Application de participation citoyenne pour les différentes communes du Sénégal.</p>
+                    <ul class="tech-stack">
+                        <li>HTML/CSS</li>
+                        <li>PHP</li>
+                        <li>SQL</li>
+                        <li>Chatbot</li>
+                        <li>IA Classification</li>
+                    </ul>
+                </div>
+                <div class="project-links">
+                    <a href="https://todo-liste.alwaysdata.net/public/user/dashboard.php" target="_blank"
+                        class="btn-proto">Prototype</a>
+                </div>
+            </div>
+
+            <!-- Projet Administration -->
+            <div class="card">
+                <div class="project-info">
+                    <span class="project-tag">Windows Server</span>
+                    <h3>Administration Systèmes</h3>
+                    <p>Infrastructure complète sous l'instruction du Dr. Gaye. Automatisation et gestion AD.</p>
+                    <ul class="tech-stack">
+                        <li>AD DS</li>
+                        <li>Replication</li>
+                        <li>DHCP/DNS</li>
+                        <li>GPO</li>
+                        <li>Backup</li>
+                    </ul>
+                </div>
+                <div class="project-links">
+                    <a href="https://drive.google.com/file/d/1D77zVgi7LRJRbhsQCMarSeU1B4Ej_05Y/view?usp=sharing" class="btn-proto">Pack Projet</a>
+                </div>
+            </div>
+
+            <!-- Projet E-Civil -->
+            <div class="card">
+                <div class="project-info">
+                    <span class="project-tag">Digitalisation</span>
+                    <h3>E-Civil Tivaouane</h3>
+                    <p>Automatisation des demandes d'actes d'état civil. Gain de productivité municipale.</p>
+                    <ul class="tech-stack">
+                        <li>PHP</li>
+                        <li>MySQL</li>
+                        <li>Dashboard</li>
+                        <li>Sécurité</li>
+                    </ul>
+                </div>
+                <div class="project-links">
+                    <a href="https://todo-liste.alwaysdata.net/login.php" target="_blank"
+                        class="btn-proto">Démo</a>
+                </div>
+            </div>
+
+            <!-- Architecture GNS3 -->
+            <div class="card">
+                <div class="project-info">
+                    <span class="project-tag">Networking</span>
+                    <h3>Architecture GNS3</h3>
+                    <p>Simulation réseau complexe avec routage dynamique OSPF et RIPv2 sous environnement Cisco.</p>
+                    <ul class="tech-stack">
+                        <li>GNS3</li>
+                        <li>Cisco IOS</li>
+                        <li>OSPF</li>
+                        <li>RIPv2</li>
+                    </ul>
+                </div>
+                <div class="project-links">
+                    <a href="https://drive.google.com/drive/folders/1FtppOARmOx5Ak_ZIkQz2CXh6ChWoJ1yW?usp=sharing" target="_blank"
+                        class="btn-proto">Ressources</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" style="background: #fff;">
+        <h2 class="section-title">Compétences</h2>
+        <div class="grid">
+            <div class="card">
+                <h3 style="color: #c0392b;">🛠️ Hard Skills</h3>
+                <p><strong>Réseaux :</strong> OSI, TCP/IP, Subnetting, Wireshark, Services DNS/DHCP/SSH.</p>
+                <p><strong>Systèmes :</strong> Linux (Bash, Quotas, Permissions) & Windows Server (Active Directory).</p>
+                <p><strong>Dev :</strong> Web (PHP/SQL), Java, Cyber-Scripting.</p>
+            </div>
+            <div class="card">
+                <h3 style="color: #27ae60;">🤝 Soft Skills</h3>
+                <ul style="list-style: none;">
+                    <li>🚀 Leadership & Pédagogie active</li>
+                    <li>🎤 Communication & Pitching de projet</li>
+                    <li>🔍 Analyse de vulnérabilités</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="parcours">
+        <h2 class="section-title">Mon Parcours</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>Licence 1 & 2 (UADB)</h4>
+                <p>Bases solides en algorithmique, réseaux et systèmes. Membre actif du CTS.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Licence 3 (Actuel)</h4>
+                <p>Spécialisation SRT. Focus sur la cybersécurité offensive/défensive et le management de projet.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cts">
+        <h2 class="section-title">Programme CTS</h2>
+        <div class="program-grid">
+            <div class="program-item">Sécurité MAC Spoofing</div>
+            <div class="program-item">OSINT & IA</div>
+            <div class="program-item">Audit Web (XSS/SQLi)</div>
+            <div class="program-item">CTF Lab & Réseaux</div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Me Contacter</h2>
+        <div style="max-width: 500px; margin: auto;">
+            <div class="project-links" style="justify-content: center;">
+                <a href="https://wa.me/221787575341" target="_blank" class="btn-proto"
+                    style="background:#25D366; color:white;">WhatsApp</a>
+                <a href="https://www.linkedin.com/in/matar-mbow-a35679327" target="_blank"
+                    class="btn-git">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>MATAR MBOW</strong> — CANDIDAT RESPONSABLE PÉDAGOGIQUE CTS</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; color: #aaa;">© 2026 Matar Mbow UADB - Tous droits réservés</p>
+    </footer>
+
+</body>
+
+</html>
